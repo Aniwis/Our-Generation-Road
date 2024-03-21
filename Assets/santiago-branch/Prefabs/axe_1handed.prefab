@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 2457938144236858816}
   - component: {fileID: 503764318342587613}
   - component: {fileID: 3833898208106767297}
+  - component: {fileID: 4502651006832523687}
+  - component: {fileID: 4957540160467769931}
   m_Layer: 0
   m_Name: axe_1handed
   m_TagString: Untagged
@@ -113,3 +115,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18864fd9df0f537479b117866dc702d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &4502651006832523687
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4115346438352882709}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.71432036, y: 1.2444227, z: 0.18496183}
+  m_Center: {x: 0.231697, y: 0.34916228, z: 0.0000005476177}
+--- !u!114 &4957540160467769931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4115346438352882709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7162d538115052c4dbb040758f500400, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectileSpeed: 20
+  fireDelay: 5
