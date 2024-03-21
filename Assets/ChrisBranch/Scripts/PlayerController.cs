@@ -1,98 +1,147 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody playerRb;
-    private Animator animator;
-    public float speed = 100f;
+    private Animator playerAnim;
+
+    
+    public float speedForce = 100f;
     public float velocidadRotacion = 10;
     public float velocidadMaxima = 100f;
+    private float movementIntensity = 0;
+
+    
+    private bool _isGrounded; 
+    public Transform _groundCheck;
+    public float _groundRadius;
+    public LayerMask _whatIsGround;
+
+    public float jumpForce;
+
     void Start()
     {
-        playerRb = GetComponent<Rigidbody>();
-        animator = GetComponent<Animator>();
+        playerRb = GetComponent<Rigidbody>(); 
+        playerAnim = GetComponent<Animator>();
     }
 
     void Update()
     {
-        PlayerMovement(); 
-        PlayerAnimation();       
+        PlayerMovement();
+        PlayerAnimation();
+        CheckGrounded();
+        JumpPlayer ();     
     }
-
-    void PlayerMovement() {
-
+ private void PlayerMovement (){
+        
+        
         float verticalInput = Input.GetAxis("Vertical");
         float horizontalInput = Input.GetAxis("Horizontal");
-      
-
-        if (Input.GetButton("Vertical") || Input.GetButton("Horizontal"))
+        
+        // movementIntensity = Mathf.Clamp01(Mathf.Abs(verticalInput) + Mathf.Abs(horizontalInput));
+        
+        // obtener el las teclas siempre que el personaje este en el piso 
+        if ((Input.GetButton("Vertical") || Input.GetButton("Horizontal")) && _isGrounded ) 
+       
         {
+            
+            // verificar si debe aumentar la velocidad si esta corriendo
             PlayerRun();
-            IsMoving = true;
+            
+            
+
             Vector3 direccion = new Vector3(horizontalInput, 0f, verticalInput).normalized;
 
-            if (direccion != Vector3.zero)
+            // comprobar si hay cambios en la direccion de ser asi calcula el forward
+             if (direccion != Vector3.zero)
             {
-
-                Quaternion rotacionDeseada = Quaternion.LookRotation(direccion);
-                transform.rotation = Quaternion.Slerp(transform.rotation, rotacionDeseada, Time.deltaTime * velocidadRotacion);
-
-                // Detener la velocidad del jugador
-                playerRb.velocity = Vector3.zero;
+                // calcular direccion delantera
+                CalculateForward(direccion);
             }
 
+            // obtener la velocidad actual del jugador en todos los ejes
+            Vector3 speedActual = playerRb.velocity;
+
+            //normalizar la velocidad a un valor medio, si la velocidad es mayor disminuir si no aumentar 
+
+             if (speedActual.magnitude > velocidadMaxima)
+            {
+                playerRb.velocity = speedActual.normalized * velocidadMaxima;
+            }
+            else 
+            {
+                playerRb.AddForce(transform.forward * speedForce);
+            }
             
-            // Calcula la velocidad actual del objeto controlado por el jugador
-            Vector3 velocidadActual = playerRb.velocity;
 
-            // Limita la velocidad a la velocidad máxima si se supera
-            if (velocidadActual.magnitude > velocidadMaxima)
-            {
-                // Reduzca la velocidad a la velocidad máxima manteniendo la dirección
-                playerRb.velocity = velocidadActual.normalized * velocidadMaxima;
-            }
-            else
-            {
-                // Añade la fuerza solo si la velocidad actual es menor que la velocidad máxima
-                playerRb.AddForce(transform.forward * speed);
-            }
-
-        }
-        else
-        {
-            IsMoving = false;
-        }
-
-      
-
-
-    }
-
-    private bool IsMoving = false;
-     private bool IsRunning = false;
-
-    void PlayerRun()
-    {
-        if (Input.GetKey(KeyCode.Space)){
-            speed = 150;
-            velocidadMaxima = 200;
-            IsRunning = true;
         }
         else 
         {
-            speed = 100;
-            velocidadMaxima = 100;
-            IsRunning = false;
+            movementIntensity = 0;
+            // no esta recibiendo orden de movimiento, o la esta recibiendo en el aire 
         }
+
+
+
     }
 
-    void PlayerAnimation(){
+private void JumpPlayer (){
 
-        animator.SetBool("IsMoving", IsMoving);
-        animator.SetBool("IsRunning", IsRunning);
+    if(Input.GetButtonDown("Jump") && _isGrounded ){
+       
+        playerRb.AddForce(jumpForce * Vector3.up,ForceMode.Impulse);
 
-    } 
+    }
+
+}
+
+
+
+
+private void CalculateForward (Vector3 direccion){
+    // recibe un vector3 con la direccion que deberia tomar como forward
+    Quaternion rotacionDeseada = Quaternion.LookRotation(direccion);
+    transform.rotation = Quaternion.Slerp(transform.rotation, rotacionDeseada, velocidadRotacion);
+
+    // Detener la velocidad del jugador, en los dos ejes de movimiento 
+    playerRb.velocity = new Vector3(0f, playerRb.velocity.y, 0f);
+
+}
+private void CheckGrounded()
+    {
+        _isGrounded = Physics.Raycast(_groundCheck.position, Vector3.down, _groundRadius, _whatIsGround);
+    }
+void PlayerRun() {
+    if (Input.GetKey(KeyCode.LeftShift)){
+        velocidadMaxima = 200;
+        speedForce = 150;
+        movementIntensity = 1;
+    }
+    else {
+        movementIntensity = 0.5f;
+        speedForce = 100;
+        velocidadMaxima = 100;
+    }
+
+}
+    // Método para determinar si el jugador está caminando, corriendo o parado
+private void PlayerAnimation() {
+
+    playerAnim.SetFloat("Speed" ,movementIntensity );
+    playerAnim.SetBool("IsGrounded" ,_isGrounded );
+}
+    
+
+ private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        if(_isGrounded){
+            Gizmos.DrawWireSphere(_groundCheck.position - Vector3.up * _groundRadius, _groundRadius);
+        }
+        
+    }
 
 }

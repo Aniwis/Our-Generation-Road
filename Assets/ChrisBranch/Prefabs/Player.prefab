@@ -137,6 +137,7 @@ GameObject:
   - component: {fileID: 357648165073416389}
   - component: {fileID: 357648165073416390}
   - component: {fileID: 357648165073416391}
+  - component: {fileID: 756646946138922011}
   - component: {fileID: 357648165073416392}
   - component: {fileID: 357648165073416388}
   m_Layer: 0
@@ -191,6 +192,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.88, y: 2.84, z: 1.96}
   m_Center: {x: -0.03, y: 0.61, z: -0.29}
+--- !u!114 &756646946138922011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 357648165073416393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15005a95f80d519448683fa21bc64bd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layer:
+    serializedVersion: 2
+    m_Bits: 0
+  InteractRange: 2
 --- !u!114 &357648165073416392
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,9 +220,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08a6763740b95494f8dd3ea71b54d78a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 100
+  speedForce: 100
   velocidadRotacion: 10
   velocidadMaxima: 100
+  _groundCheck: {fileID: 0}
+  _groundRadius: 0
+  _whatIsGround:
+    serializedVersion: 2
+    m_Bits: 0
+  jumpForce: 0
 --- !u!95 &357648165073416388
 Animator:
   serializedVersion: 5
