@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
@@ -21,6 +22,9 @@ public class AudioManager : MonoBehaviour
 
     public AudioSource[] music;
     public AudioSource[] sfx;
+    public AudioMixerGroup musicMixer, sfxMixer;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -44,4 +48,12 @@ public class AudioManager : MonoBehaviour
         sfx[sfxToPlay].Play();
     }
 
+    public void SetMusicLevel()
+    {
+        musicMixer.audioMixer.SetFloat("MusicVol", UIManager.Instance.musicVolSlider.value);
+    }
+    public void SetSFXLevel()
+    {
+        sfxMixer.audioMixer.SetFloat("SFXVol", UIManager.Instance.sfxVolSlider.value);
+    }
 }

@@ -7,7 +7,8 @@ public class GameManager : MonoBehaviour
 {
     private UIManager uiManager;
     [SerializeField] bool isPaused, win, lose;
-    
+    public int playerOnScene;
+
 
     // Start is called before the first frame update
     void Start()
@@ -30,6 +31,7 @@ public class GameManager : MonoBehaviour
         win = false;
         lose = false;
         uiManager = FindAnyObjectByType<UIManager>();
+        playerOnScene = 0;
     }
 
     private void PanelPause()
@@ -87,6 +89,31 @@ public class GameManager : MonoBehaviour
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    //musica que suena dependiendo de en cual escena esté el player
+    //public void PlayMusicScena()
+    //{
+    //    if(playerOnScene == 1)
+    //    {
+    //        AudioManager.Instance.PlayMusic(1);
+
+    //    }else if(playerOnScene == 2)
+    //    {
+    //        AudioManager.Instance.PlayMusic(2);
+    //    }else if(playerOnScene == 3)
+    //    {
+    //        AudioManager.Instance.PlayMusic(3);
+    //    }
+    //}
+
+    public void Mute()
+    {
+        UIManager.Instance.musicVolSlider.value = -80;
+    }
+    public void Unmute()
+    {
+        UIManager.Instance.musicVolSlider.value = 0;
     }
 
 }

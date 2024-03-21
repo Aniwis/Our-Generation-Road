@@ -1,13 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    private static UIManager instance;
 
-    public GameObject panelPause;
-    public GameObject panelWin;
-    public GameObject panelLose;
+    public static UIManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<UIManager>();
+            }
+            return instance;
+        }
+    }
+    public GameObject panelPause, panelAudio, panelWin, panelLose;
+    public Button buttonPanelAudio;
+    public Slider musicVolSlider, sfxVolSlider;
     // Start is called before the first frame update
     void Start()
     {
@@ -28,6 +41,10 @@ public class UIManager : MonoBehaviour
         panelWin.gameObject.SetActive(false);
         panelLose = GetComponentInChildren<Canvas>().transform.Find("PanelLose").gameObject;
         panelLose.gameObject.SetActive(false);
+        panelAudio = GetComponentInChildren<Canvas>().transform.Find("PanelAudio").gameObject;
+        panelAudio.gameObject.SetActive(false);
+        buttonPanelAudio.onClick.AddListener(ActivatePanelAudio);
+
     }
 
     public void ActivatePanelPause()
@@ -38,6 +55,7 @@ public class UIManager : MonoBehaviour
     public void DeactivatePanelPause()
     {
         panelPause.SetActive(false);
+        panelAudio.SetActive(false);
     }
 
     public void ActivatePanelWin()
@@ -56,7 +74,21 @@ public class UIManager : MonoBehaviour
     {
         panelLose.SetActive(false);
     }
+    public void ActivatePanelAudio()
+    {
+        panelAudio.SetActive(true);
+    }
 
+    public void SetMusicLevel()
+    {
+        AudioManager.Instance.SetMusicLevel();
+    }
+    public void SetSFXLevel()
+    {
 
+        AudioManager.Instance.SetSFXLevel();
+    }
 
+    
+  
 }
