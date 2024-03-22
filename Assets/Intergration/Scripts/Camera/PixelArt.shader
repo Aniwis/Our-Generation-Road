@@ -4,6 +4,7 @@ Shader "Hidden/PixelArt"
     {
         _MainTex ("Texture", 2D) = "white" {}
         _PixelRange("Pixel Size", float) = 64
+        _SceneConfig("Config Scene", int) = 0
     }
     SubShader
     {
@@ -40,7 +41,7 @@ Shader "Hidden/PixelArt"
 
             sampler2D _MainTex;
             float _PixelRange;
-
+            int _SceneConfig;
             fixed4 frag (v2f i) : SV_Target
             {
 
@@ -49,23 +50,30 @@ Shader "Hidden/PixelArt"
                 uv= floor(uv.xy  * _PixelRange) / _PixelRange;;
                 
                  
-
-
-
                 fixed4 col = tex2D(_MainTex, uv);
-
-                //  Convertir a blanco y negro
-                // float gray = dot(col.rgb, float3(0.299, 0.587, 0.114));
-                // col.rgb = float3(gray, gray, gray);
+            
                 
-                 // Mapeo de colores para simular aspecto NES
-                 col.rgb = floor(col.rgb * 4) / 4;
-                //  Aplicar dithering para un aspecto retro
-                //  float noise = frac(uv.x * 8) * frac(uv.y * 8);
-                //  col.rgb += noise * 0.05;
- 
+                if (_SceneConfig == 0)
+                {
+                     
+                    //Convertir a blanco y negro
+                    float gray = dot(col.rgb, float3(0.299, 0.587, 0.114));
+                    col.rgb = float3(gray, gray, gray);
+                }
+                else if (_SceneConfig == 1)
+                {
+                    //  Mapeo de colores para simular aspecto NES
+                    col.rgb = floor(col.rgb * 4) / 4;
+                    // col.rgb *=  0.03;
+                }
+                else 
+                {
+                    col.rgb = col.rgb ;
+                }
 
-                // col.rgb = col.rgb ;
+
+                
+
                 return col;
             }
             ENDCG

@@ -26,6 +26,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _PixelRange: 64
+    - _PixelRange: 70
+    - _SceneConfig: 0
     m_Colors: []
   m_BuildTextureStacks: []

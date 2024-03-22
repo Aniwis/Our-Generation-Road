@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -75,16 +74,16 @@ public class PlayerController : MonoBehaviour
             {
                 playerRb.AddForce(transform.forward * speedForce);
             }
-            
-
+          
         }
         else 
         {
             movementIntensity = 0;
             // no esta recibiendo orden de movimiento, o la esta recibiendo en el aire 
+
+            // Detener la velocidad del jugador, en los dos ejes de movimiento 
+            playerRb.velocity = new Vector3(0f, playerRb.velocity.y, 0f);
         }
-
-
 
     }
 
@@ -93,13 +92,10 @@ private void JumpPlayer (){
     if(Input.GetButtonDown("Jump") && _isGrounded ){
        
         playerRb.AddForce(jumpForce * Vector3.up,ForceMode.Impulse);
-
+        
     }
 
 }
-
-
-
 
 private void CalculateForward (Vector3 direccion){
     // recibe un vector3 con la direccion que deberia tomar como forward
@@ -116,14 +112,14 @@ private void CheckGrounded()
     }
 void PlayerRun() {
     if (Input.GetKey(KeyCode.LeftShift)){
-        velocidadMaxima = 200;
-        speedForce = 150;
+        velocidadMaxima = 70;
+        speedForce = 70;
         movementIntensity = 1;
     }
     else {
         movementIntensity = 0.5f;
-        speedForce = 100;
-        velocidadMaxima = 100;
+        speedForce = 35;
+        velocidadMaxima = 35;
     }
 
 }
