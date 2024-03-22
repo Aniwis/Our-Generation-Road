@@ -8,8 +8,10 @@ public class SpawnManager : MonoBehaviour
     public Transform[] spawnPoints; // Puntos de spawn donde aparecerán los enemigos
 
     private int waveSize = 3; // Tamaño de la oleada inicial
+
     private int waveCounter = 1; // Contador de oleadas
 
+    public GameObject portal; // El prefab del portal que quieres instanciar
     void Start()
     {
         // Comenzar la función de spawnear enemigos
@@ -18,7 +20,7 @@ public class SpawnManager : MonoBehaviour
 
     IEnumerator SpawnWave()
     {
-        while (true)
+        while (waveCounter <= 3) // Solo ejecutar hasta que se completen las tres oleadas
         {
             // Mostrar información sobre la nueva oleada
             Debug.Log("Iniciando oleada " + waveCounter + " con " + waveSize + " enemigos.");
@@ -39,8 +41,12 @@ public class SpawnManager : MonoBehaviour
             // Incrementar el contador de oleadas
             waveCounter++;
         }
-    }
 
+        // Se han completado las tres oleadas
+        Debug.Log("¡Ganaste!");
+
+        portal.SetActive(true);
+    }
     void SpawnEnemy()
     {
         // Elegir un punto de spawn aleatorio

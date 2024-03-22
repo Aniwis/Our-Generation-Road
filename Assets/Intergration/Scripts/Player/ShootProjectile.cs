@@ -8,6 +8,8 @@ public class ShootProjectile : MonoBehaviour
     public float fireDelay = 0.5f; // Tiempo de retraso entre cada disparo
     private float nextFireTime; // Momento en que se podrá disparar nuevamente
 
+    public ChestShoot chest;
+
     void Start()
     {
         // Inicializar el próximo momento de disparo
@@ -17,7 +19,7 @@ public class ShootProjectile : MonoBehaviour
     void Update()
     {
         // Verificar si se puede disparar y el jugador presiona el botón de disparo
-        if (Time.time > nextFireTime && Input.GetButtonDown("Fire1"))
+        if (Time.time > nextFireTime && Input.GetButtonDown("Fire1") && chest.IsFound())
         {
             // Llama a la función Shoot para lanzar el proyectil
             Shoot();

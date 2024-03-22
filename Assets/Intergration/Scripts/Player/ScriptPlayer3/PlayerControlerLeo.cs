@@ -16,13 +16,16 @@ public class PlayerControlerLeo : MonoBehaviour
     private Vector3 moveDirection;
 
     public CharacterController charController;
-    // Trae la c·mara
+    // Trae la camara
     public Camera playerCamera;
 
-    //trae al Player
+    // Trae al Player
     public GameObject playerModel;
 
     public Animator animator;
+
+    // Referencia al cofre
+    public ChestJump chestJump;
 
     private void Awake()
     {
@@ -31,7 +34,7 @@ public class PlayerControlerLeo : MonoBehaviour
 
     void Start()
     {
-        
+       
     }
 
     // Update is called once per frame
@@ -39,8 +42,8 @@ public class PlayerControlerLeo : MonoBehaviour
     {
         float yStore = moveDirection.y;
 
-        //Movimiento
-        moveDirection = (transform.forward * Input.GetAxisRaw("Vertical"))+ (transform.right * Input.GetAxisRaw("Horizontal"));
+        // Movimiento
+        moveDirection = (transform.forward * Input.GetAxisRaw("Vertical")) + (transform.right * Input.GetAxisRaw("Horizontal"));
         moveDirection.Normalize();
         moveDirection = moveDirection * moveSpeed;
         moveDirection.y = yStore;
@@ -48,13 +51,13 @@ public class PlayerControlerLeo : MonoBehaviour
 
         charController.Move(moveDirection * Time.deltaTime);
 
-        //Salto
-
+        // Salto
         if (charController.isGrounded)
         {
             moveDirection.y = -1f;
 
-            if (Input.GetButtonDown("Jump"))
+            // Verifica si el cofre ha sido encontrado antes de permitir el salto
+            if (Input.GetButtonDown("Jump") && chestJump.IsFound())
             {
                 moveDirection.y = jumpForce;
                 doubleJump = true;
@@ -65,29 +68,29 @@ public class PlayerControlerLeo : MonoBehaviour
             moveDirection.y = jumpForce;
             doubleJump = false;
         }
-        
-
-        //Gravedad
-        moveDirection.y += Physics.gravity.y * Time.deltaTime* garavityScale;
 
 
-        //Solo rota si hay movimiento del Player
-        if( Input.GetAxisRaw("Horizontal")!=0 || Input.GetAxisRaw("Vertical") != 0)
+        // Gravedad
+        moveDirection.y += Physics.gravity.y * Time.deltaTime * garavityScale;
+
+
+        // Solo rota si hay movimiento del Player
+        if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0)
         {
-            //El player rota con la c·mara
+            // El player rota con la c√°mara
             transform.rotation = Quaternion.Euler(0f, playerCamera.transform.rotation.eulerAngles.y, 0f);
 
-            //El player rotahacia la direcciÛn a donde camina
+            // El player rota hacia la direcci√≥n a donde camina
             Quaternion newRotation = Quaternion.LookRotation(new Vector3(moveDirection.x, 0f, moveDirection.z));
 
-            //Rota suavemente
+            // Rota suavemente
             playerModel.transform.rotation = Quaternion.Slerp(playerModel.transform.rotation, newRotation, rotateSpeed * Time.deltaTime);
 
         }
 
-        //afecta los datos del animator. Le envÌa datos al parametro Speed
+        // Afecta los datos del animator. Le env√≠a datos al parametro Speed
         animator.SetFloat("Speed", Mathf.Abs(moveDirection.x) + Mathf.Abs(moveDirection.z));
-        //Afecta el grounded para saber cuando est· en el suelo
+        // Afecta el grounded para saber cuando est√° en el suelo
         animator.SetBool("Grounded", charController.isGrounded);
 
     }
