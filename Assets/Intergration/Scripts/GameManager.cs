@@ -5,19 +5,32 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    private UIManager uiManager;
+    private static GameManager instance;
+
+    public static GameManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<GameManager>();
+            }
+            return instance;
+        }
+    }
+    
     [SerializeField] bool isPaused, win, lose;
     public int playerOnScene;
 
 
-    // Start is called before the first frame update
+    
     void Start()
     {
         StarGame();
         CursorControl();
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
         PanelPause();
@@ -30,7 +43,6 @@ public class GameManager : MonoBehaviour
         isPaused = false;
         win = false;
         lose = false;
-        uiManager = FindAnyObjectByType<UIManager>();
         playerOnScene = 0;
     }
 
@@ -50,7 +62,7 @@ public class GameManager : MonoBehaviour
     {
         if(win)
         {
-            uiManager.ActivatePanelWin();
+            UIManager.Instance.ActivatePanelWin();
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
         }
@@ -60,7 +72,7 @@ public class GameManager : MonoBehaviour
     {
         if (lose)
         {
-            uiManager.ActivatePanelLose();
+            UIManager.Instance.ActivatePanelLose();
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
         }
@@ -68,7 +80,7 @@ public class GameManager : MonoBehaviour
 
     public void PauseGame()
     {
-        uiManager.ActivatePanelPause();
+        UIManager.Instance.ActivatePanelPause();
         Time.timeScale = 0;
         isPaused = true;
         Cursor.visible = true;
@@ -76,7 +88,7 @@ public class GameManager : MonoBehaviour
     }
     public void ResumeGame()
     {
-        uiManager.DeactivatePanelPause();
+        UIManager.Instance.DeactivatePanelPause();
         Time.timeScale = 1;
         isPaused = false;
         Cursor.visible = false;
@@ -93,6 +105,11 @@ public class GameManager : MonoBehaviour
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+    }
+    public void CursorControlActive()
+    {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 
     //musica que suena dependiendo de en cual escena esté el player

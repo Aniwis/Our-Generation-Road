@@ -8,16 +8,17 @@ public class OpenDoor : MonoBehaviour
     private int scoreChallenge1;
     public ChallengeOneOne  challengeOneOne;
     public Cronometer cronometer;
-
-    //public TextMeshProUGUI mensajeCanvas;
     public Animator animationDoor1;
     public Animator animationDoor2;
-    public bool bandera1, bandera2;
+    public bool bandera1;
+
+    public TextMeshProUGUI textoInstrucciones;
+    public float tiempoEntreInstrucciones1 = 4f;
+    
 
     void Start()
     {
         bandera1 = false;
-        bandera2 = false;
         cronometer = FindObjectOfType<Cronometer>();
     }
 
@@ -27,48 +28,52 @@ public class OpenDoor : MonoBehaviour
         scoreChallenge1 = challengeOneOne.scoreNotes;
         if (scoreChallenge1 >= 7 && bandera1 == true)
         {
-            StartCoroutine(OpenDoor1Courrutine());
-            bandera1 = false;
-            cronometer.cantCronometer();
-            AudioManager.Instance.PlayMusic(3);
+            StartCoroutine(OpenDoor1Courrutine());     
         }
     }
 
     IEnumerator OpenDoor1Courrutine()
     {
-        // Esperar unos segundos
-        yield return new WaitForSeconds(2f);
-
-        // Activar la animación de la puerta
-
+        AudioManager.Instance.PlayMusic(3);
+        cronometer.cantCronometer();
+        bandera1 = false;
+        textoInstrucciones.text = "Felicitaciones, ahora eres un maestro Músico";
+        yield return new WaitForSeconds(tiempoEntreInstrucciones1);
+        textoInstrucciones.text = "Ahora podrás disfrutar de la hermosa música mientras juegas";
+        yield return new WaitForSeconds(tiempoEntreInstrucciones1);
+        textoInstrucciones.text = "Sigue descubriendo este maravilloso mundo";
+        yield return new WaitForSeconds(tiempoEntreInstrucciones1);
+        textoInstrucciones.text = "";
         animationDoor1.Play("AnimationDoor1");
+        Destroy(gameObject);
     }
     public IEnumerator OpenDoor2Courrutine()
     {
-        // Esperar unos segundos
         yield return new WaitForSeconds(2f);
-
-        // Activar la animación de la puerta
-
         animationDoor2.Play("AnimationDoor2");
     }
 
     void OnTriggerEnter(Collider other)
     {
-
         if (other.CompareTag("Player"))
         {
             bandera1 = true;
         }
-
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            Debug.Log("sale player");
+            bandera1 = false;
+            StopCoroutine(OpenDoor1Courrutine());
+        }
     }
 
     public void OpenDoor2()
     {
         StartCoroutine(OpenDoor2Courrutine());
     }
-
-
 }
 
     

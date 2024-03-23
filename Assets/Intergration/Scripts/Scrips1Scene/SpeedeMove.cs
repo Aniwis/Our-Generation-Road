@@ -6,7 +6,6 @@ public class SpeedeMove : MonoBehaviour
     public float velocidad = 0;
     public bool running;
     
-    
     void Start()
     {
         running = false;
@@ -23,9 +22,6 @@ public class SpeedeMove : MonoBehaviour
         running = true;
         GetComponent<Rigidbody>().velocity = transform.forward * velocidad;
     }
-
-
-
 
 }
 

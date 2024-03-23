@@ -5,47 +5,37 @@ using TMPro;
 public class Instrucciones : MonoBehaviour
 {
     public TextMeshProUGUI textoInstrucciones;
-   
     public float tiempoEntreInstrucciones1 = 4f;
-
     private Cronometer cronometer; 
-
-    public bool canCronometer;
     public GameObject wall;
+    
 
     void Start()
     {
         StartCoroutine(CambiarInstrucciones1());
         cronometer = FindObjectOfType<Cronometer>();
-        canCronometer = true;
     }
-
     IEnumerator CambiarInstrucciones1()
     {
-        
-           // Cambiar el texto del TextMeshPro con la nueva instrucción
-                textoInstrucciones.text = "Bienvenido Learne a este mundo de aprendizaje";
-
-                // Esperar cierto tiempo antes de mostrar la siguiente instrucción
-                yield return new WaitForSeconds(tiempoEntreInstrucciones1);
-
-                textoInstrucciones.text = "Tendrás que aprender cómo evolucionar este mundo de videojuegos";
-        
-                yield return new WaitForSeconds(tiempoEntreInstrucciones1);
-
-                textoInstrucciones.text = "Tu primera tarea será activar el audio en tu juego";
-
-                yield return new WaitForSeconds(tiempoEntreInstrucciones1);
-
-                textoInstrucciones.text = "Siempre sigue las flechas. Go! Go! GO!";
-                wall.gameObject.SetActive(false);
-                yield return new WaitForSeconds(tiempoEntreInstrucciones1);
-
-                textoInstrucciones.text = "";
-                cronometer.canCronometer();
+        CharacterController charControlPlayer= PlayerController1Scene.Instance.gameObject.GetComponent<CharacterController>();
+        charControlPlayer.enabled = false;
+        textoInstrucciones.text = "Bienvenido Learne a este mundo de aprendizaje";           
+        yield return new WaitForSeconds(tiempoEntreInstrucciones1);
+        textoInstrucciones.text = "Tendrás que aprender cómo evolucionar este mundo de videojuegos";
+        yield return new WaitForSeconds(tiempoEntreInstrucciones1);
+        textoInstrucciones.text = "Tu primera tarea será activar el audio en tu juego";
+        yield return new WaitForSeconds(tiempoEntreInstrucciones1);
+        textoInstrucciones.text = "Toca las cajas musicales y descubre el sonido";
+        yield return new WaitForSeconds(tiempoEntreInstrucciones1); 
+        textoInstrucciones.text = "Siempre sigue las flechas. Go! Go! GO!";
+        wall.gameObject.SetActive(false);
+        yield return new WaitForSeconds(tiempoEntreInstrucciones1);
+        textoInstrucciones.text = "";
+        charControlPlayer.enabled = true;
+        cronometer.canCronometer();
+        Destroy(gameObject);
     }
  
-
     public void StarCourutineInstrucciones()
     {
         StartCoroutine(CambiarInstrucciones1());
