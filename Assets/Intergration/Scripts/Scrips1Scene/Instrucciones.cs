@@ -16,9 +16,7 @@ public class Instrucciones : MonoBehaviour
         cronometer = FindObjectOfType<Cronometer>();
     }
     IEnumerator CambiarInstrucciones1()
-    {
-        CharacterController charControlPlayer= PlayerController1Scene.Instance.gameObject.GetComponent<CharacterController>();
-        charControlPlayer.enabled = false;
+    {       
         textoInstrucciones.text = "Bienvenido Learne a este mundo de aprendizaje";           
         yield return new WaitForSeconds(tiempoEntreInstrucciones1);
         textoInstrucciones.text = "Tendrás que aprender cómo evolucionar este mundo de videojuegos";
@@ -31,7 +29,6 @@ public class Instrucciones : MonoBehaviour
         wall.gameObject.SetActive(false);
         yield return new WaitForSeconds(tiempoEntreInstrucciones1);
         textoInstrucciones.text = "";
-        charControlPlayer.enabled = true;
         cronometer.canCronometer();
         Destroy(gameObject);
     }

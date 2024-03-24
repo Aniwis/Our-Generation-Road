@@ -8,7 +8,7 @@ public class StarRace : MonoBehaviour
     private Cronometer cronometer;
     SpeedeMove speedeMaster;
     PlayerController playerController;
-    public float tiempoEntreInstrucciones2 = 2f;
+    public float tiempoEntreInstrucciones2 = 3f;
     public bool canCronometer;
     public TextMeshProUGUI textoInstrucciones;
     private Camera miCamara;
@@ -24,7 +24,7 @@ public class StarRace : MonoBehaviour
         //instrucciones2 = FindObjectOfType<Instrucciones>();
         speedeMaster = FindFirstObjectByType<SpeedeMove>();
         playerController = FindFirstObjectByType<PlayerController>();
-       
+
     }
 
     // Update is called once per frame
@@ -35,55 +35,48 @@ public class StarRace : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-
         if (other.CompareTag("Player"))
         {
             Debug.Log("Instrucciones2");
             ActivarInstrucciones();
         }
-      
     }
-
 
     void ActivarInstrucciones()
     {
-        StartCoroutine(SegundasInstrucciones2()); 
+        StartCoroutine(SegundasInstrucciones2());
     }
     IEnumerator SegundasInstrucciones2()
     {
         cronometer.tiempoRestante = 10;
-        //playerController.transform.position = new Vector3(9,0,50);
-        //playerController.transform.rotation = Quaternion.Euler(0, 180, 0);
-        //miCamara.transform.rotation = Quaternion.Euler(35, 180, 0);
 
-        //cameraFollow.offset = new Vector3(-7, 15, 16);
-        // Cambiar el texto del TextMeshPro con la nueva instrucción
-        textoInstrucciones.text = "Hola, soy Speede, seré tu maestro correlón";
-
-        // Esperar cierto tiempo antes de mostrar la siguiente instrucción
+        textoInstrucciones.text = "Hola, soy Speede, ser  tu maestro correl n";
         yield return new WaitForSeconds(tiempoEntreInstrucciones2);
+
 
         textoInstrucciones.text = "Si logras llegar a tiempo en la carrera";
 
         yield return new WaitForSeconds(tiempoEntreInstrucciones2);
 
-        textoInstrucciones.text = "Te daré la habilidad de correr";
+        textoInstrucciones.text = "Te dar  la habilidad de correr";
 
         yield return new WaitForSeconds(tiempoEntreInstrucciones2);
 
-        textoInstrucciones.text = "No tienes que ganarme, igual Soy Muy Rápido";
+        textoInstrucciones.text = "No tienes que ganarme, igual Soy Muy R pido";
 
         yield return new WaitForSeconds(tiempoEntreInstrucciones2);
 
-        textoInstrucciones.text = "Sólo llega antes de que acabe el tiempo, te esperaré en la Meta";
+        textoInstrucciones.text = "S lo llega antes de que acabe el tiempo, te esperar  en la Meta";
 
         yield return new WaitForSeconds(tiempoEntreInstrucciones2);
 
         textoInstrucciones.text = "GO! GO! GO!";
+
         wall.gameObject.SetActive(false);
         cronometer.canCronometer();
-        speedeMaster.velocidad = 7;
+        speedeMaster.velocidad = 8;
         yield return new WaitForSeconds(tiempoEntreInstrucciones2);
         textoInstrucciones.text = "";
+        Destroy(gameObject);
     }
 }

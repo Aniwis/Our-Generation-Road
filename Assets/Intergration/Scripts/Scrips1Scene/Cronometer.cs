@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
 
 public class Cronometer : MonoBehaviour
@@ -7,12 +7,14 @@ public class Cronometer : MonoBehaviour
     public float tiempoRestante;
     public TextMeshProUGUI textoTiempo;
 
-    public bool goToChallenge; 
+    public bool goToChallenge;
+
 
     void Start()
     {
-        tiempoRestante = tiempoInicial;
-        ActualizarTextoTiempo();  
+       Time.timeScale = 1;
+       tiempoRestante = tiempoInicial;
+       ActualizarTextoTiempo();
     }
 
     void Update()
@@ -22,12 +24,12 @@ public class Cronometer : MonoBehaviour
             tiempoRestante -= Time.deltaTime;
             ActualizarTextoTiempo();
         }
-         else if(tiempoRestante <= 0f)
+        else if (tiempoRestante <= 0f)
         {
-           tiempoRestante = 0f; 
-           goToChallenge = false;
-           UIManager.Instance.panelLose.SetActive(true);
-           GameManager.Instance.CursorControlActive();
+            goToChallenge = false;
+            UIManager.Instance.panelLose.SetActive(true);
+            GameManager.Instance.CursorControlActive();
+            Time.timeScale = 0;
         }
     }
 
@@ -51,4 +53,3 @@ public class Cronometer : MonoBehaviour
         goToChallenge = false;
     }
 }
-
