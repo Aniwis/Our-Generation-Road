@@ -11,6 +11,7 @@ public class OpenDoor : MonoBehaviour
     public Animator animationDoor1;
     public Animator animationDoor2;
     public bool bandera1;
+    public GameObject wall;
 
     public TextMeshProUGUI textoInstrucciones;
     public float tiempoEntreInstrucciones1 = 4f;
@@ -34,6 +35,8 @@ public class OpenDoor : MonoBehaviour
 
     IEnumerator OpenDoor1Courrutine()
     {
+        yield return new WaitForSeconds(1);
+        wall.gameObject.SetActive(true);
         AudioManager.Instance.PlayMusic(3);
         cronometer.cantCronometer();
         bandera1 = false;
@@ -46,6 +49,7 @@ public class OpenDoor : MonoBehaviour
         textoInstrucciones.text = "";
         animationDoor1.Play("AnimationDoor1");
         Destroy(gameObject);
+        wall.gameObject.SetActive(false);
     }
     public IEnumerator OpenDoor2Courrutine()
     {
