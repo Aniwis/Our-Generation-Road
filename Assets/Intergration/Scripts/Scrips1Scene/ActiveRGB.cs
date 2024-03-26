@@ -14,7 +14,9 @@ public class ActiveRGB : MonoBehaviour,IInteractable
     private float timer = 3;
 
     private float maxTime = 3;
-  
+    private ColorChange colorChange;
+
+    private bool canCount = true;
 
     public string textWarning = "Mantener F para activar Color";
     public string activateTextColor = "Color Verde Actado";
@@ -24,6 +26,8 @@ public class ActiveRGB : MonoBehaviour,IInteractable
         textRGB = canvasColor.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         GameObject parentUIBomb = canvasColor.transform.GetChild(1).gameObject;
         feedBackColor = parentUIBomb.transform.GetChild(1).GetComponent<Image>();
+        
+        colorChange = GameObject.Find("ColorChange").GetComponent<ColorChange>();
 
     }
 
@@ -43,9 +47,10 @@ public class ActiveRGB : MonoBehaviour,IInteractable
             timer -= Time.deltaTime;
             
             
-            if (timer <= 0){
-                textWarning = activateTextColor;
-
+            if (timer <= 0 && canCount == true){
+                //textWarning = activateTextColor;
+                //colorChange.rgbCount += 1;
+                StartCoroutine(ChangeColorCount());
             }
         }
 
@@ -59,6 +64,17 @@ public class ActiveRGB : MonoBehaviour,IInteractable
     void UpdateColorUI (){
         float restante = 1;
         feedBackColor.fillAmount = restante - (timer / maxTime);     
+    }
+
+    IEnumerator ChangeColorCount()
+    {
+        canCount = false;
+        textWarning = activateTextColor;
+        colorChange.rgbCount += 1;
+        yield return new WaitForSeconds(1);
+        canCount = true;
+        colorChange.ChangeColor();
+        Destroy(gameObject);
     }
 
 }

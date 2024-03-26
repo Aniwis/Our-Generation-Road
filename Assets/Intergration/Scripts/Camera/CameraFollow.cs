@@ -12,8 +12,6 @@ public class CameraFollow : MonoBehaviour
     public float smoothSpeed = 0.125f;
     public int screenConfig = 2;
 
-    public int indexScreenConfig = 0;
-
     private Camera miCamara;
     private CustomPostProcess postProcess;
     void Start()
@@ -43,14 +41,20 @@ public class CameraFollow : MonoBehaviour
         transform.Rotate(Vector3.left, -35);
         miCamara.orthographic = true;
         postProcess.mat.SetFloat("_PixelRange", 70);
-        postProcess.mat.SetInt("_SceneConfig", indexScreenConfig);
+        postProcess.mat.SetInt("_SceneConfig", 0);
     }
 
     void Scene2Cofig () {
         offset= new Vector3 (0,3,-10);
         miCamara.orthographic = true;
         postProcess.mat.SetFloat("_PixelRange", 100);
-        postProcess.mat.SetInt("_SceneConfig", indexScreenConfig);
+        postProcess.mat.SetInt("_SceneConfig", 1);
+    }
+
+    void Scene1Final()
+    {
+        postProcess.mat.SetFloat("_PixelRange", 100);
+        postProcess.mat.SetInt("_SceneConfig", 1);
     }
 
  
@@ -63,6 +67,9 @@ public class CameraFollow : MonoBehaviour
                 break;
             case 1:
                 Scene2Cofig();
+                break;
+            case 2:
+                Scene1Final();
                 break;
             default:
                 break;
