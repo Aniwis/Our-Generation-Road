@@ -50,7 +50,7 @@ public class StarRace : MonoBehaviour
     {
         cronometer.tiempoRestante = 10;
 
-        textoInstrucciones.text = "Hola, soy Speede, ser  tu maestro correl n";
+        textoInstrucciones.text = "Hola, soy Speede, seré  tu maestro correlón";
         yield return new WaitForSeconds(tiempoEntreInstrucciones2);
 
 
@@ -58,25 +58,29 @@ public class StarRace : MonoBehaviour
 
         yield return new WaitForSeconds(tiempoEntreInstrucciones2);
 
-        textoInstrucciones.text = "Te dar  la habilidad de correr";
+        textoInstrucciones.text = "Te daré la habilidad de correr";
 
         yield return new WaitForSeconds(tiempoEntreInstrucciones2);
 
-        textoInstrucciones.text = "No tienes que ganarme, igual Soy Muy R pido";
+        textoInstrucciones.text = "No tienes que ganarme, igual Soy Muy Rápido";
 
         yield return new WaitForSeconds(tiempoEntreInstrucciones2);
 
-        textoInstrucciones.text = "S lo llega antes de que acabe el tiempo, te esperar  en la Meta";
+        textoInstrucciones.text = "Recuerda tomar las barras de tiempo!!";
+
+        yield return new WaitForSeconds(tiempoEntreInstrucciones2);
+
+        textoInstrucciones.text = "Si logras llegar antes de que acabe el tiempo, te esperaré en la Meta";
 
         yield return new WaitForSeconds(tiempoEntreInstrucciones2);
 
         textoInstrucciones.text = "GO! GO! GO!";
-
         wall.gameObject.SetActive(false);
         cronometer.canCronometer();
         speedeMaster.velocidad = 8;
         yield return new WaitForSeconds(tiempoEntreInstrucciones2);
-        textoInstrucciones.text = "";
+        textoInstrucciones.text = ""; 
         Destroy(gameObject);
+                
     }
 }

@@ -21,7 +21,7 @@ public class PlayerController1Scene : MonoBehaviour
     public CharacterController charController;
     public Animator animator;
     public GameObject playerModel;
-    public bool doubleJump = false;
+    public bool canRun = false;
     public float moveSpeed;
     public float garavityScale = 5f;
     public float rotateSpeed = 5f;
@@ -62,7 +62,7 @@ public class PlayerController1Scene : MonoBehaviour
     }
     void PlayerRun()
     {
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.LeftShift) && canRun)
         {
           moveSpeed = 13;
         }
@@ -71,5 +71,10 @@ public class PlayerController1Scene : MonoBehaviour
           moveSpeed = 7;
         }
 
+    }
+
+    public void CanRun()
+    {
+        canRun = true;
     }
 }

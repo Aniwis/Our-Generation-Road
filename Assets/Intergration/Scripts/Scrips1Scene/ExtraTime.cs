@@ -22,7 +22,9 @@ public class ExtraTime : MonoBehaviour
 
         if (other.CompareTag("Player"))
         {
-            cronometer.tiempoRestante = cronometer.tiempoRestante + 8;
+            cronometer.tiempoRestante = cronometer.tiempoRestante + 5;
+            Destroy(gameObject);
+
         }
 
     }

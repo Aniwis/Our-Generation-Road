@@ -51,10 +51,12 @@ public class GameManager : MonoBehaviour
         if (Input.GetButtonDown("Cancel") && !isPaused)
         {
             PauseGame();
+            isPaused = true;
         }
         else if (Input.GetButtonDown("Cancel") && isPaused)
         {
             ResumeGame();
+            isPaused = false;
         }
     }
 
