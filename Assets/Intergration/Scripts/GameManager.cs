@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
         }
     }
     
-    [SerializeField] bool isPaused, win, lose;
+    public bool isPaused, win, lose;
     public int playerOnScene;
 
 

@@ -7,24 +7,16 @@ public class StarRace : MonoBehaviour
 {
     private Cronometer cronometer;
     SpeedeMove speedeMaster;
-    PlayerController playerController;
     public float tiempoEntreInstrucciones2 = 3f;
     public bool canCronometer;
     public TextMeshProUGUI textoInstrucciones;
-    private Camera miCamara;
-    CameraFollow cameraFollow;
     public GameObject wall;
 
     // Start is called before the first frame update
     void Start()
     {
-        miCamara = FindObjectOfType<Camera>();
-        cameraFollow = miCamara.GetComponent<CameraFollow>();
         cronometer = FindObjectOfType<Cronometer>();
-        //instrucciones2 = FindObjectOfType<Instrucciones>();
         speedeMaster = FindFirstObjectByType<SpeedeMove>();
-        playerController = FindFirstObjectByType<PlayerController>();
-
     }
 
     // Update is called once per frame
@@ -49,6 +41,8 @@ public class StarRace : MonoBehaviour
     IEnumerator SegundasInstrucciones2()
     {
         cronometer.tiempoRestante = 10;
+        yield return new WaitForSeconds(1);
+        wall.gameObject.SetActive(true);
 
         textoInstrucciones.text = "Hola, soy Speede, seré  tu maestro correlón";
         yield return new WaitForSeconds(tiempoEntreInstrucciones2);
@@ -77,7 +71,7 @@ public class StarRace : MonoBehaviour
         textoInstrucciones.text = "GO! GO! GO!";
         wall.gameObject.SetActive(false);
         cronometer.canCronometer();
-        speedeMaster.velocidad = 8;
+        speedeMaster.velocidad =10;
         yield return new WaitForSeconds(tiempoEntreInstrucciones2);
         textoInstrucciones.text = ""; 
         Destroy(gameObject);

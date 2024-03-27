@@ -6,7 +6,7 @@ public class Cronometer : MonoBehaviour
     public float tiempoInicial = 60f;
     public float tiempoRestante;
     public TextMeshProUGUI textoTiempo;
-
+    GameManager gameManager;
     public bool goToChallenge;
 
 
@@ -15,6 +15,7 @@ public class Cronometer : MonoBehaviour
        Time.timeScale = 1;
        tiempoRestante = tiempoInicial;
        ActualizarTextoTiempo();
+       gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     void Update()
@@ -30,6 +31,8 @@ public class Cronometer : MonoBehaviour
             UIManager.Instance.panelLose.SetActive(true);
             GameManager.Instance.CursorControlActive();
             Time.timeScale = 0;
+            textoTiempo.text = "00:00";
+            gameManager.isPaused = true;
         }
     }
 
