@@ -48,8 +48,6 @@ public class ActiveRGB : MonoBehaviour,IInteractable
             
             
             if (timer <= 0 && canCount == true){
-                //textWarning = activateTextColor;
-                //colorChange.rgbCount += 1;
                 StartCoroutine(ChangeColorCount());
             }
         }

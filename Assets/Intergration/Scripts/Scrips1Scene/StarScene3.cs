@@ -39,7 +39,7 @@ public class StarScene3 : MonoBehaviour
     IEnumerator Instructions3()
     {
         cronometer.tiempoRestante = 30;
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.5f);
         wall.gameObject.SetActive(true);
 
         textoInstrucciones.text = "Hola, soy Rainbow, seré  tu maestro del Color";
@@ -54,7 +54,7 @@ public class StarScene3 : MonoBehaviour
 
         yield return new WaitForSeconds(tiempoEntreInstrucciones);
 
-        textoInstrucciones.text = "NSolo tienes que seguir las instrucciones";
+        textoInstrucciones.text = "Solo tienes que seguir las instrucciones";
 
         yield return new WaitForSeconds(tiempoEntreInstrucciones);
 

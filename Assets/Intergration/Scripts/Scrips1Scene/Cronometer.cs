@@ -27,9 +27,10 @@ public class Cronometer : MonoBehaviour
         }
         else if (tiempoRestante <= 0f)
         {
+            GameManager.Instance.lose = true;
             goToChallenge = false;
-            UIManager.Instance.panelLose.SetActive(true);
-            GameManager.Instance.CursorControlActive();
+            //UIManager.Instance.panelLose.SetActive(true);
+            GameManager.Instance.Lose();
             Time.timeScale = 0;
             textoTiempo.text = "00:00";
             gameManager.isPaused = true;

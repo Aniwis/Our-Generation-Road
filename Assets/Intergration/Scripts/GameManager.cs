@@ -60,23 +60,25 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void Win()
+    public void Win()
     {
         if(win)
         {
             UIManager.Instance.ActivatePanelWin();
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
+            isPaused = true;
         }
     }
 
-    private void Lose()
+    public void Lose()
     {
         if (lose)
         {
             UIManager.Instance.ActivatePanelLose();
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
+            isPaused = true;
         }
     }
 

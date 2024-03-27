@@ -12,7 +12,7 @@ public class Instrucciones : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(CambiarInstrucciones1());
+        
         cronometer = FindObjectOfType<Cronometer>();
     }
     IEnumerator CambiarInstrucciones1()
@@ -33,10 +33,18 @@ public class Instrucciones : MonoBehaviour
         Destroy(gameObject);
     }
  
-    public void StarCourutineInstrucciones()
+    //public void StarCourutineInstrucciones()
+    //{
+    //    StartCoroutine(CambiarInstrucciones1());
+    //}
+    void OnTriggerEnter(Collider other)
     {
-        StartCoroutine(CambiarInstrucciones1());
+        if (other.CompareTag("Player"))
+        {
+            Debug.Log("Instrucciones1");
+            StartCoroutine(CambiarInstrucciones1());
+        }
     }
-   
+
 }
 
