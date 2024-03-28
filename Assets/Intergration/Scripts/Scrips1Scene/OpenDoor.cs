@@ -35,7 +35,7 @@ public class OpenDoor : MonoBehaviour
 
     IEnumerator OpenDoor1Courrutine()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.5f);
         wall.gameObject.SetActive(true);
         AudioManager.Instance.PlayMusic(3);
         cronometer.cantCronometer();

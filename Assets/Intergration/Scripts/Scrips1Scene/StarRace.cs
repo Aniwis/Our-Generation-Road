@@ -40,6 +40,7 @@ public class StarRace : MonoBehaviour
     }
     IEnumerator SegundasInstrucciones2()
     {
+        AudioManager.Instance.PlayMusic(3);
         cronometer.tiempoRestante = 12;
         yield return new WaitForSeconds(0.5f);
         wall.gameObject.SetActive(true);

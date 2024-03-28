@@ -10,11 +10,13 @@ public class StarScene3 : MonoBehaviour
     public bool canCronometer;
     public TextMeshProUGUI textoInstrucciones;
     public GameObject wall;
+    PlayerController1 player;
 
     // Start is called before the first frame update
     void Start()
     {
         cronometer = FindObjectOfType<Cronometer>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController1>();
     }
 
     // Update is called once per frame
@@ -38,6 +40,8 @@ public class StarScene3 : MonoBehaviour
     }
     IEnumerator Instructions3()
     {
+        AudioManager.Instance.PlayMusic(3);
+        player.canRun = true;
         cronometer.tiempoRestante = 30;
         yield return new WaitForSeconds(0.5f);
         wall.gameObject.SetActive(true);
