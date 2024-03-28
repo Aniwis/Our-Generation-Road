@@ -101,8 +101,10 @@ public class GameManager : MonoBehaviour
 
     public void RestartScene()
     {
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        SceneManager.LoadScene(currentSceneIndex);
+        //int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        //SceneManager.LoadScene(currentSceneIndex);
+        string sceneName = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(sceneName);
     }
 
     public void CursorControl()

@@ -8,16 +8,20 @@ public class PlayerPos : MonoBehaviour
     private GameMaster gm;
     void Start()
     {
-        gm = FindObjectOfType<GameMaster>(); 
+
+        gm = GameObject.FindGameObjectWithTag("GM").GetComponent<GameMaster>();
         transform.position = gm.lastCheckPointPos;
+
     }
 
-    // Update is called once per frame
+
     void Update()
     {
-       if(Input.GetKeyDown(KeyCode.Space)){
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-
-       }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            // Obtener el nombre de la escena actual
+            string sceneName = SceneManager.GetActiveScene().name;
+            SceneManager.LoadScene(sceneName);
+        }
     }
 }

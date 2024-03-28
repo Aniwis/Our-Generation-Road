@@ -40,8 +40,8 @@ public class StarRace : MonoBehaviour
     }
     IEnumerator SegundasInstrucciones2()
     {
-        cronometer.tiempoRestante = 10;
-        yield return new WaitForSeconds(1);
+        cronometer.tiempoRestante = 12;
+        yield return new WaitForSeconds(0.5f);
         wall.gameObject.SetActive(true);
 
         textoInstrucciones.text = "Hola, soy Speede, seré  tu maestro correlón";

@@ -33,10 +33,7 @@ public class Instrucciones : MonoBehaviour
         Destroy(gameObject);
     }
  
-    //public void StarCourutineInstrucciones()
-    //{
-    //    StartCoroutine(CambiarInstrucciones1());
-    //}
+   
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))

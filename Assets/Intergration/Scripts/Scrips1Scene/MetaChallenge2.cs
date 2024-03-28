@@ -11,6 +11,8 @@ public class MetaChallenge2 : MonoBehaviour
     public GameObject wall;
     public TextMeshProUGUI textoInstrucciones;
     public float tiempoEntreInstrucciones2 = 4f;
+
+    PlayerController1 player;
     
     // Start is called before the first frame update
     void Start()
@@ -18,6 +20,7 @@ public class MetaChallenge2 : MonoBehaviour
         openDoor2 = FindObjectOfType<OpenDoor>();
         speedeMaster = FindFirstObjectByType<SpeedeMove>();
         cronometer = FindFirstObjectByType<Cronometer>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController1>();
     }
 
     // Update is called once per frame
@@ -66,7 +69,7 @@ public class MetaChallenge2 : MonoBehaviour
         textoInstrucciones.text = "Ahora podrás ir de prisa a todas partes";
         yield return new WaitForSeconds(tiempoEntreInstrucciones2);
         textoInstrucciones.text = "Solo tendrás que oprimir 'Shift' cuando te muevas";
-        PlayerController1Scene.Instance.CanRun();
+        player.canRun = true;
         yield return new WaitForSeconds(tiempoEntreInstrucciones2);
         textoInstrucciones.text = "Sigue descubriendo este maravilloso mundo";
         yield return new WaitForSeconds(tiempoEntreInstrucciones2);
