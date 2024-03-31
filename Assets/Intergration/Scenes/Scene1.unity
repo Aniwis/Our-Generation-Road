@@ -6020,7 +6020,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
+    rgba: 4278251263
   m_fontColor: {r: 1, g: 0.9348355, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -19167,7 +19167,7 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4287071317
+    rgba: 4294967295
   m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
@@ -23250,7 +23250,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7868131915191160941, guid: a743c505317036b47b02c75749ae3c9b, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5524289120667191939, guid: a743c505317036b47b02c75749ae3c9b, type: 3}

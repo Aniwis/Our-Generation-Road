@@ -43,6 +43,7 @@ public class ColorChange : MonoBehaviour
         yield return new WaitForSeconds(3);
         textoInstrucciones.text = "Continúa explorando este grandioso mundo de aprendizaje";
         yield return new WaitForSeconds(3);
+        textoInstrucciones.text = "";
         GameManager.Instance.win = true;
         GameManager.Instance.Win();
 

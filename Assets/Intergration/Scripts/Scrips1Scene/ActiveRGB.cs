@@ -1,13 +1,12 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ActiveRGB : MonoBehaviour,IInteractable
+public class ActiveRGB : MonoBehaviour
 {
-    private Canvas canvasColor ;
+    private Canvas canvasColor;
     private TextMeshProUGUI textRGB;
 
     public Image feedBackColor;
@@ -20,59 +19,90 @@ public class ActiveRGB : MonoBehaviour,IInteractable
 
     public string textWarning = "Mantener F para activar Color";
     public string activateTextColor = "Color Verde Actado";
+
     void Start()
     {
         canvasColor = transform.GetChild(1).GetComponent<Canvas>();
         textRGB = canvasColor.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         GameObject parentUIBomb = canvasColor.transform.GetChild(1).gameObject;
         feedBackColor = parentUIBomb.transform.GetChild(1).GetComponent<Image>();
-        
-        colorChange = GameObject.Find("ColorChange").GetComponent<ColorChange>();
 
+        colorChange = GameObject.Find("ColorChange").GetComponent<ColorChange>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        canvasColor.gameObject.SetActive(false);
-        textRGB.text = "";
+        // La lógica para desactivar el canvas y resetear el texto ahora se maneja en OnTriggerExit
     }
 
-    public void Interact () {
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player")) // Asegúrate de que tu objeto jugador tenga el tag "Player"
+        {
+            StartInteraction();
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            Interact();
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            EndInteraction();
+        }
+    }
+
+    private void StartInteraction()
+    {
         canvasColor.gameObject.SetActive(true);
         textRGB.text = textWarning;
+    }
+
+    private void Interact()
+    {
         UpdateColorUI();
         if (Input.GetKey(KeyCode.F))
         {
             timer -= Time.deltaTime;
-            
-            
-            if (timer <= 0 && canCount == true){
+            if (timer <= 0 && canCount)
+            {
                 StartCoroutine(ChangeColorCount());
             }
         }
+    }
 
-        if (Input.GetKeyUp(KeyCode.F) && timer > 0){
-            timer = maxTime;
-            
+    private void EndInteraction()
+    {
+        canvasColor.gameObject.SetActive(false);
+        textRGB.text = "";
+        if (timer > 0)
+        {
+            timer = maxTime; // Reset timer si el jugador sale antes de activar.
         }
     }
 
-
-    void UpdateColorUI (){
+    void UpdateColorUI()
+    {
         float restante = 1;
-        feedBackColor.fillAmount = restante - (timer / maxTime);     
+        feedBackColor.fillAmount = restante - (timer / maxTime);
     }
 
     IEnumerator ChangeColorCount()
     {
         canCount = false;
-        textWarning = activateTextColor;
+        textRGB.text = activateTextColor;
         colorChange.rgbCount += 1;
         yield return new WaitForSeconds(1);
         canCount = true;
+        timer = maxTime; // Reset timer después de activar
         colorChange.ChangeColor();
         Destroy(gameObject);
     }
-
 }

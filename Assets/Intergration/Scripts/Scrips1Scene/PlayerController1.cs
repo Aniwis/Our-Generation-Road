@@ -100,14 +100,14 @@ private void CheckGrounded()
     }
 void PlayerRun() {
     if (Input.GetKey(KeyCode.LeftShift) && canRun){
-        velocidadMaxima = 70;
-        speedForce = 70;
-        movementIntensity = 1;
+        velocidadMaxima = 450;
+        speedForce = 450;
+        movementIntensity = 3;
     }
     else {
-        movementIntensity = 0.5f;
-        speedForce = 35;
-        velocidadMaxima = 35;
+        movementIntensity = 2f;
+        speedForce = 250;
+        velocidadMaxima = 250;
     }
 
 }
