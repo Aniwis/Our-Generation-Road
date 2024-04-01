@@ -5,6 +5,15 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - Speede
+  - Ground
+  - Bad
+  - Fine
+  - GM
+  - Bomb
+  - HealthBar
+  - ParticlesActivator
+  - ChestGold
   layers:
   - Default
   - TransparentFX
@@ -12,7 +21,7 @@ TagManager:
   - Ground
   - Water
   - UI
-  - 
+  - Limit
   - 
   - 
   - 
